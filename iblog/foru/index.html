@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="height=device-height,width=device-width,initial-scale=1.0,minimum-scale=1.0,maximun=1.0,user-scalable=no">
+	<title>Canvas</title>
+	<link rel="stylesheet" type="text/css" href="css/blur.css">
+	<script type="text/javascript" src="js/jquery-1.11.3.min.js"></script>
+</head>
+<body>
+	<div id="blur-div">
+		<img src="images/star.jpg" id="blur-image">
+		<canvas id="canvas"></canvas>
+		<div id="mask">
+			<div id="textBox">
+				<input type="text" id="text" placeholder="输入一句我最想听的话,就可以看我的照片哦" />
+				<hr class="hr" />
+			</div>
+			<a href="javascript:;" class="button" id="show-button">show</a>
+		</div>
+	</div>
+	<script type="text/javascript">
+	var canvasWidth = window.innerWidth;
+	var canvasHeight = window.innerHeight;
+	var canvas = document.getElementById('canvas');
+	var text = document.getElementById('text');
+	var mask = document.getElementById('mask');
+	var context = canvas.getContext('2d');
+	canvas.width = canvasWidth;
+	canvas.height = canvasHeight; 
+	var image = new Image();
+	var radius = 50;
+	var clippingRegion = {x:-1,y:-1,r:radius};
+	var leftMargin = 0,topMargin = 0;
+	image.src = "images/star.jpg";
+	image.onload = function(){
+		$('#blur-div').css('width',canvasWidth+'px');
+		$('#blur-div').css('height',canvasHeight+'px');
+
+		$('#blur-image').css('width',image.width+'px');
+		$('#blur-image').css('height',image.height+'px');
+		
+		leftMargin = (image.width - canvas.width)/2;
+		topMargin = (image.height - canvas.height)/2;
+		
+		$('#blur-image').css('top','-'+topMargin+'px');
+		$('#blur-image').css('left','-'+leftMargin+'px');
+		$('#text').on('focus',function(){
+			$('.hr').addClass('hr_hover');
+		})
+		$('#text').on('blur',function(){
+			$('.hr').removeClass('hr_hover');
+		})
+		initCanvas();
+	}
+	function initCanvas(){
+		clippingRegion = {x:Math.random()*(canvas.width - 2*radius)+radius,y:Math.random()*(canvas.height - 2 * radius)+radius,r:radius};
+		draw(image,clippingRegion);
+	}
+	function setClippingRegion(clippingRegion){
+		context.beginPath();
+		context.arc(clippingRegion.x,clippingRegion.y,clippingRegion.r,0,Math.PI*2,false);
+		context.clip();
+	}
+	function draw(image , clippingRegion){
+		context.clearRect(0,0,canvas.width,canvas.height);
+		context.save();
+		setClippingRegion(clippingRegion);
+		context.drawImage(image,leftMargin,topMargin,canvas.width,canvas.height,0,0,canvas.width,canvas.height);
+		context.restore();
+	}
+	function show() {
+		var play = setInterval(function(){
+			clippingRegion.r += 20;
+			if(clippingRegion.r > 2*Math.max(canvas.width,canvas.height)){
+				clearInterval(play);
+			}
+			draw(image,clippingRegion);
+		},30);
+	}
+
+	function reset(){
+		initCanvas();
+	}
+	$("#show-button").on('touchstart',function(){
+		if(text.value === "老公我爱你"){
+			show();
+			mask.style.display = "none";
+		}else{
+			text.css('border','1px solid red')
+		}
+	})
+	</script>
+</body>
+</html>

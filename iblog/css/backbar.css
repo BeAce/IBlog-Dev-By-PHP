@@ -1,0 +1,70 @@
+.backBar {
+  position: fixed;
+  width: 52px;
+  height: 212px;
+  bottom: 55px;
+  right: 2%;
+  margin-left: -26px; 
+  opacity: .9; }
+
+.sections {
+  position: relative; }
+
+.section {
+  display: block;
+  width: 52px;
+  height: 52px;
+  margin-top: 1px;
+  background: url(../images/toolbar.png) no-repeat;
+  
+  transition: all .3s;}
+
+.weixin {
+  background-position: 0 -798px; }
+
+.weixin:hover {
+  background-position: 0 -860px; }
+
+.faq {
+  background-position: 0 -426px; }
+
+.faq:hover {
+  background-position: 0 -488px; }
+
+.app {
+  background-position: 0 -550px; }
+
+.app:hover {
+  background-position: 0 -612px; }
+
+.back {
+  background-position: 0 -674px; }
+
+.back:hover {
+  background-position: 0 -736px; }
+
+.ewm {
+  display: block;
+  width: 172px;
+  height: 210px;
+  background: url(../images/toolbar.png) no-repeat;
+  position: absolute;
+  left: -170px;
+  bottom: -9px;
+  overflow: hidden;
+  transition: all .5s;
+  transform-origin: 95% 95%; 
+  transform: scale(0);
+  opacity: 0;}
+  
+.weixin:hover .ewm,.app:hover .ewm{
+  transform: scale(1);
+  opacity: 1;
+  }
+  
+.img-wx {
+  background-position: 0 0; }
+
+.img-app {
+  background-position: 0 -208px; }
+
