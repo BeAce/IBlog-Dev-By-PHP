@@ -3,7 +3,7 @@
 [博客地址](http://beace.applinzi.com/iblog/)
 
 ##项目目录
-> 
+>iblog
 源文件（源代码）
 由于在一开始是发布在新浪`sae`上，涉及到个人隐私。因此，数据库配置文件`config.php`以及`connect.php`，可能有所删减
 #####`index.php`
